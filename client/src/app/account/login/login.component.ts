@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AccountService } from '../account.service';
 
 @Component({
@@ -10,12 +11,13 @@ import { AccountService } from '../account.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
-  model: any = []
-  validationErrors: string[] = [];
+  returnUrl: string;
 
-  constructor(private accountService: AccountService, private router: Router, private fb: FormBuilder) { }
+  constructor(private accountService: AccountService, private router: Router, 
+    private toastr: ToastrService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || '/dashboard';
     this.initializeForm();
   }
 
@@ -28,8 +30,9 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.accountService.login(this.loginForm.value).subscribe(response => {
-      // this.router.navigateByUrl('/');
-      console.log(this.model.value);
+      this.router.navigateByUrl(this.returnUrl)
+    }, error => { 
+      this.toastr.error(error.error);
     })
   }
 
