@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit {
   login() {
     this.accountService.login(this.loginForm.value).subscribe(response => {
       this.router.navigateByUrl(this.returnUrl)
-    }, error => { 
-      this.toastr.error(error.error);
     })
   }
 
