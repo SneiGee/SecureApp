@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using Server.Data.Identity;
-using Server.Entities;
+using Server.Entities.Identity;
 
 namespace Server.Extensions
 {

@@ -3,17 +3,19 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Server.Data.Identity;
 
 #nullable disable
 
-namespace Server.Data.Migrations
+namespace Server.Data.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    partial class IdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20220314121318_InitialCreateIdentity")]
+    partial class InitialCreateIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -110,7 +112,7 @@ namespace Server.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Server.Entities.AppRole", b =>
+            modelBuilder.Entity("Server.Entities.Identity.AppRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -140,7 +142,7 @@ namespace Server.Data.Migrations
                     b.ToTable("AspNetRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Server.Entities.AppUser", b =>
+            modelBuilder.Entity("Server.Entities.Identity.AppUser", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -149,9 +151,6 @@ namespace Server.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<int>("BlockId")
                         .HasColumnType("int");
 
                     b.Property<string>("City")
@@ -245,8 +244,6 @@ namespace Server.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BlockId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -258,7 +255,7 @@ namespace Server.Data.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Server.Entities.AppUserRole", b =>
+            modelBuilder.Entity("Server.Entities.Identity.AppUserRole", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -273,24 +270,7 @@ namespace Server.Data.Migrations
                     b.ToTable("AspNetUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Server.Entities.Block", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Blocks");
-                });
-
-            modelBuilder.Entity("Server.Entities.Photo", b =>
+            modelBuilder.Entity("Server.Entities.Identity.Photo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -321,7 +301,7 @@ namespace Server.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
-                    b.HasOne("Server.Entities.AppRole", null)
+                    b.HasOne("Server.Entities.Identity.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -330,7 +310,7 @@ namespace Server.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<int>", b =>
                 {
-                    b.HasOne("Server.Entities.AppUser", null)
+                    b.HasOne("Server.Entities.Identity.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -339,7 +319,7 @@ namespace Server.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("Server.Entities.AppUser", null)
+                    b.HasOne("Server.Entities.Identity.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -348,33 +328,22 @@ namespace Server.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
-                    b.HasOne("Server.Entities.AppUser", null)
+                    b.HasOne("Server.Entities.Identity.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Server.Entities.AppUser", b =>
+            modelBuilder.Entity("Server.Entities.Identity.AppUserRole", b =>
                 {
-                    b.HasOne("Server.Entities.Block", "Block")
-                        .WithMany()
-                        .HasForeignKey("BlockId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Block");
-                });
-
-            modelBuilder.Entity("Server.Entities.AppUserRole", b =>
-                {
-                    b.HasOne("Server.Entities.AppRole", "Role")
+                    b.HasOne("Server.Entities.Identity.AppRole", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Server.Entities.AppUser", "User")
+                    b.HasOne("Server.Entities.Identity.AppUser", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -385,9 +354,9 @@ namespace Server.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Server.Entities.Photo", b =>
+            modelBuilder.Entity("Server.Entities.Identity.Photo", b =>
                 {
-                    b.HasOne("Server.Entities.AppUser", "AppUser")
+                    b.HasOne("Server.Entities.Identity.AppUser", "AppUser")
                         .WithMany("Photos")
                         .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -396,12 +365,12 @@ namespace Server.Data.Migrations
                     b.Navigation("AppUser");
                 });
 
-            modelBuilder.Entity("Server.Entities.AppRole", b =>
+            modelBuilder.Entity("Server.Entities.Identity.AppRole", b =>
                 {
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("Server.Entities.AppUser", b =>
+            modelBuilder.Entity("Server.Entities.Identity.AppUser", b =>
                 {
                     b.Navigation("Photos");
 

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Server.Data.Identity;
-using Server.Entities;
+using Server.Entities.Identity;
 
 namespace Server.Controllers
 {

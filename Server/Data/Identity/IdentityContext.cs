@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Server.Entities;
+using Server.Entities.Identity;
 
 namespace Server.Data.Identity
 {
@@ -13,8 +14,6 @@ namespace Server.Data.Identity
         {
         }
 
-        public DbSet<Block> Blocks { get; set; } = null!;
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -24,11 +23,6 @@ namespace Server.Data.Identity
                 .WithOne(u => u.User)
                 .HasForeignKey(ur => ur.UserId)
                 .IsRequired();
-            
-            builder.Entity<AppUser>()
-                .HasOne(b => b.Block)
-                .WithMany()
-                .HasForeignKey(b => b.BlockId);
             
             builder.Entity<AppRole>()
                 .HasMany(ur => ur.UserRoles)

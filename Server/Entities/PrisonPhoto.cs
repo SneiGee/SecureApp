@@ -2,14 +2,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Server.Entities
 {
-    [Table("Photos")]
-    public class Photo
+    [Table("PrisonPhotos")]
+    public class PrisonPhoto
     {
         public int Id { get; set; }
         public string Url { get; set; } = string.Empty;
         public bool IsMain { get; set; } = true;
         public string PublicId { get; set; } = string.Empty;
-        public AppUser? AppUser { get; set; }
-        public int AppUserId { get; set; }
+        public Prisoner? Prisoner { get; set; }
+        public int PrisonerId { get; set; }
     }
 }

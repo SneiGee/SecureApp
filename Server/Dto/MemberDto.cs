@@ -2,7 +2,7 @@ namespace Server.Dto
 {
     public class MemberDto
     {
-        public int Id { get; set; }
+        public string IdNumber { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
         public string PhotoUrl { get; set; } = string.Empty;
         public int Age { get; set; }

@@ -13,7 +13,6 @@
         "Interests": "Sit sit incididunt proident velit.",
         "City": "Greenbush",
         "Nationality": "Martinique",
-        "BlockId": 2,
         "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/women/54.jpg",
@@ -35,7 +34,27 @@
         "Interests": "Dolor aliquip velit amet aliqua minim quip cillum.",
         "City": "Celeryville",
         "Nationality": "Grenada",
-        "BlockId": 1,
+        "Photos": [
+            {
+                "Url": "https://randomuser.me/api/portraits/women/50.jpg",
+                "IsMain": true
+            }
+        ]
+    },
+    {
+        "FirstName": "Mark",
+        "LastName": "Berg",
+        "UserName": "MArk",
+        "Email": "karen@test.com",
+        "Gender": "male",
+        "DateOfBirth": "1993-10-02",
+        "KnownAs": "Mark",
+        "Created": "2019-12-09",
+        "LastActive": "2020-05-06",
+        "Status": "Single",
+        "Interests": "Dolor aliquip velit amet aliqua minim quip cillum.",
+        "City": "Celeryville",
+        "Nationality": "UK",
         "Photos": [
             {
                 "Url": "https://randomuser.me/api/portraits/women/50.jpg",

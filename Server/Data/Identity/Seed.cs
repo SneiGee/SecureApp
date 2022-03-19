@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Server.Entities;
+using Server.Entities.Identity;
 
 namespace Server.Data.Identity
 {
@@ -12,14 +12,14 @@ namespace Server.Data.Identity
         {
             if (await userManager.Users.AnyAsync()) return;
 
-            var userData = await System.IO.File.ReadAllTextAsync("Data/SeedData/UserSeedData.json");
+            var userData = await System.IO.File.ReadAllTextAsync("Data/Identity/SeedIdentity/UserSeedData.json");
             var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
             if (users == null) return;
 
             var roles = new List<AppRole>
             {
-                new AppRole{Name = "Member"},
                 new AppRole{Name = "Admin"},
+                new AppRole{Name = "Guard"},
                 new AppRole{Name = "Moderator"},
             };
 
@@ -32,7 +32,7 @@ namespace Server.Data.Identity
             {
                 user.UserName = user.UserName.ToLower();
                 await userManager.CreateAsync(user, "password");
-                await userManager.AddToRoleAsync(user, "Member");
+                await userManager.AddToRoleAsync(user, "Guard");
             }
 
             var admin = new AppUser
@@ -45,7 +45,6 @@ namespace Server.Data.Identity
                 City = "New York",
                 Nationality = "USA",
                 KnownAs = "Admin",
-                BlockId = 2,
                 Created = DateTime.Now,
                 LastActive = DateTime.Now,
                 Status = "Married",
@@ -55,7 +54,7 @@ namespace Server.Data.Identity
             await userManager.CreateAsync(admin, "password");
             await userManager.AddToRolesAsync(admin, new[] {"Admin", "Moderator"});
             
-            await userManager.GetSecurityStampAsync(admin);
+            // await userManager.GetSecurityStampAsync(admin);
         }
     }
 }

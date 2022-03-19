@@ -1,4 +1,4 @@
-using Server.Entities;
+using Server.Entities.Identity;
 
 namespace Server.Interfaces
 {

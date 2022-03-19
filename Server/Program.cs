@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Server.Data;
 using Server.Data.Identity;
-using Server.Entities;
+using Server.Entities.Identity;
 using Server.Extensions;
 using Server.Middleware;
 
@@ -45,17 +46,23 @@ app.MapControllers();
 
 using var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
+var loggerFactory = services.GetRequiredService<ILoggerFactory>();
 try
 {
-    var context = services.GetRequiredService<IdentityContext>();
+    var context = services.GetRequiredService<StoreContext>();
+    await context.Database.MigrateAsync();
+    await StoreContextSeed.SeedPrisonerAsync(context, loggerFactory);
+    
+
+    var identityContent = services.GetRequiredService<IdentityContext>();
     var userManager = services.GetRequiredService<UserManager<AppUser>>();
     var roleManager = services.GetRequiredService<RoleManager<AppRole>>();
-    await context.Database.MigrateAsync();
+    await identityContent.Database.MigrateAsync();
     await Seed.SeedUsers(userManager, roleManager);
 }
 catch (Exception ex)
 {
-    var logger = services.GetRequiredService<ILogger<Program>>();
+    var logger = loggerFactory.CreateLogger<Program>();
     logger.LogError(ex, "An error occurred during migration");
 }
 

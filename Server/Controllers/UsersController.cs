@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -5,23 +6,32 @@ using Microsoft.EntityFrameworkCore;
 using Server.Data.Identity;
 using Server.Dto;
 using Server.Entities;
+using Server.Interfaces;
 
 namespace Server.Controllers
 {
     public class UsersController : BaseController
     {
-        private readonly UserManager<AppUser> _userManager;
-        private readonly IdentityContext _context;
-        public UsersController(UserManager<AppUser> userManager, IdentityContext context)
+        private readonly IUserRepository _repository;
+        private readonly IMapper _mapper;
+        public UsersController(IUserRepository repository, IMapper mapper)
         {
-            _context = context;
-            _userManager = userManager;
+            _mapper = mapper;
+            _repository = repository;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            var users = await _repository.GetMembersAsync();
+
+            return Ok(users);
+        }
+
+        [HttpGet("{username}")]
+        public async Task<ActionResult<MemberDto>> GetUser(string username)
+        {
+            return await _repository.GetMemberAsync(username);
         }
     }
 }

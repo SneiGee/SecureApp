@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Dto;
-using Server.Entities;
+using Server.Entities.Identity;
 using Server.Interfaces;
 
 namespace Server.Controllers
