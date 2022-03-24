@@ -1,0 +1,15 @@
+<ng-container >
+    <div class="card mb-2">
+        <div class="card-img-wrapper">
+            <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.username}}" class="card-img-top">
+        </div>
+    
+        <div class="card-body p-1">
+            <h3 class="card-title text-center mb-1">
+                {{member.knownAs}}
+            </h3>
+            <p class="card-text text-muted text-center">{{member.city}}</p>
+            <button routerLink="/security/{{member.username}}" mat-raised-button color="warn" class="text-center w-100 mb-2">View data</button>
+        </div>
+    </div>
+</ng-container>

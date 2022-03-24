@@ -18,6 +18,16 @@ const routes: Routes = [
     loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule)
   },
   {
+    path: 'prisoner',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./inmate/inmate.module').then(mod => mod.InmateModule)
+  },
+  {
+    path: 'security',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./security/security.module').then(mod => mod.SecurityModule)
+  },
+  {
     path: 'feedback',
     canActivate: [AuthGuard],
     loadChildren: () => import('./feedback/feedback.module').then(mod => mod.FeedbackModule)

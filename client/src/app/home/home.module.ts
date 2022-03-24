@@ -8,7 +8,6 @@ import { AccountModule } from '../account/account.module';
 @NgModule({
   declarations: [
     HomeComponent
-    
   ],
   imports: [
     CommonModule,

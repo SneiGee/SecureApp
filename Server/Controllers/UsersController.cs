@@ -10,6 +10,7 @@ using Server.Interfaces;
 
 namespace Server.Controllers
 {
+    [Authorize]
     public class UsersController : BaseController
     {
         private readonly IUserRepository _repository;
