@@ -12,7 +12,7 @@ using Server.Data;
 namespace Server.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20220314113425_InitialCreatePrison")]
+    [Migration("20220325163937_InitialCreatePrison")]
     partial class InitialCreatePrison
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

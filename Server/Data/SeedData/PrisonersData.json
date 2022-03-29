@@ -63,7 +63,7 @@
         "BlockId": 2,
         "PrisonPhotos": [
             {
-                "Url": "https://randomuser.me/api/portraits/women/50.jpg",
+                "Url": "https://randomuser.me/api/portraits/women/90.jpg",
                 "IsMain": true
             }
         ]
@@ -86,7 +86,7 @@
         "BlockId": 2,
         "PrisonPhotos": [
             {
-                "Url": "https://randomuser.me/api/portraits/women/50.jpg",
+                "Url": "https://randomuser.me/api/portraits/women/84.jpg",
                 "IsMain": true
             }
         ]

@@ -17,7 +17,7 @@ export class SecurityComponent implements OnInit {
   }
 
   loadMember() {
-    this.securityService.getPrisoners().subscribe(member => {
+    this.securityService.getSecurites().subscribe(member => {
       this.guards = member;
     })
   }

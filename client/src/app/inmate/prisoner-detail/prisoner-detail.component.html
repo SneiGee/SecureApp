@@ -1,0 +1,81 @@
+<ng-container *ngIf="prisoner">
+    <div class="container p-4 mt-5" style="background-color: #fff;">
+        <div class="row">
+            <div class="col-4">
+                <div class="card">
+                    <img src="{{prisoner.pictureUrl || './assets/user.png'}}" alt="{{ prisoner.firstName}}" class="card-img-top img-thumbnail">
+                    <!-- <div class="card-body">
+                        <div>
+                            <strong>Location:</strong>
+                            <p>{{ prisoner.city }}</p>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="col-8">
+                <tabset class="member-tabset">
+                    <tab heading='About {{prisoner.firstName}}'>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Inmate Id #</td>
+                                    <td>{{ prisoner.inmateId }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>{{ prisoner.firstName }} {{ prisoner.lastName }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Country</td>
+                                    <td>{{ prisoner.nationality }}</td>
+                                </tr>
+                                <tr>
+                                    <td>City</td>
+                                    <td>{{ prisoner.city }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Age</td>
+                                    <td>{{ prisoner.age }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Gender</td>
+                                    <td>{{ prisoner.gender | titlecase }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Arrest date</td>
+                                    <td>{{ prisoner.created | date }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Height</td>
+                                    <td>{{ prisoner.height }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Weight</td>
+                                    <td>{{ prisoner.weight }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Eye color</td>
+                                    <td>{{ prisoner.eyeColor  }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Hair color</td>
+                                    <td>{{ prisoner.hairColor }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Cell name</td>
+                                    <td>{{ prisoner.block }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </tab>
+                    <tab heading='Photos of {{prisoner.firstName}}'>
+                        <!-- <ngx-gallery [options]="galleryOptions" [images]="galleryImages"
+                            style="display: inline-block; margin-bottom: 20px;">
+                        </ngx-gallery> -->
+                    </tab>
+                </tabset>
+            </div>
+        </div>
+    </div>
+</ng-container>

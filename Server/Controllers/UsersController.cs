@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Server.Data.Identity;
 using Server.Dto;
 using Server.Entities;
+using Server.Extensions;
 using Server.Interfaces;
 
 namespace Server.Controllers
@@ -33,6 +35,20 @@ namespace Server.Controllers
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
             return await _repository.GetMemberAsync(username);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateUserProfile(MemberUpdateDto memberUpdateDto)
+        {
+            var user = await _repository.GetUserByUsernameAsync(User.GetUsername());
+
+            _mapper.Map(memberUpdateDto, user);
+
+            _repository.Update(user);
+
+            if (await _repository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to update user");
         }
     }
 }

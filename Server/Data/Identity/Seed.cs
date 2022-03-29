@@ -41,7 +41,7 @@ namespace Server.Data.Identity
                 Email = "admin@test.com",
                 FirstName = "Bob",
                 LastName = "Bobbity",
-                Gender = "Male",
+                Gender = "male",
                 City = "New York",
                 Nationality = "USA",
                 KnownAs = "Admin",
@@ -50,7 +50,7 @@ namespace Server.Data.Identity
                 Status = "Married",
                 Interests = "Dolor aliquip velit amet aliqua minim quip cillum."
             };
-
+            
             await userManager.CreateAsync(admin, "password");
             await userManager.AddToRolesAsync(admin, new[] {"Admin", "Moderator"});
             

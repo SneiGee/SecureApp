@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, ReplaySubject } from 'rxjs';
+import { map, of, ReplaySubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IMember } from '../shared/models/member';
 import { IUser } from '../shared/models/user';
 
 @Injectable({
@@ -9,6 +10,8 @@ import { IUser } from '../shared/models/user';
 })
 export class AccountService {
   baseUrl = environment.apiUrl;
+  members: IMember[] = [];
+  user: IUser;
   private currentUserSource = new ReplaySubject<IUser>(1);
   currentUser$ = this.currentUserSource.asObservable();
 
@@ -38,6 +41,23 @@ export class AccountService {
   setCurrentUser(user: IUser) {
     localStorage.setItem('user', JSON.stringify(user));
     this.currentUserSource.next(user);
+  }
+
+  getMember(username: string) {
+    const member = this.members.find(x => x.username === username)
+    if (member !== undefined) {
+      return of(member);
+    }
+    return this.http.get<IMember>(this.baseUrl + 'users/' + username);
+  }
+
+  updateProfile(member: IMember) {
+    return this.http.put(this.baseUrl + 'users', member).pipe(
+      map(() => {
+        const index = this.members.indexOf(member);
+        this.members[index] = member;
+      })
+    )
   }
 
   logout() {

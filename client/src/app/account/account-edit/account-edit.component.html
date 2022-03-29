@@ -1,0 +1,78 @@
+<ng-container *ngIf="member">
+    <div class="container pt-3 mt-5" style="background-color: #fff;">
+        <div class="row">
+            <div class="col-4">
+                <h2>Your Profile</h2>
+            </div>
+            <div class="col-8">
+                <div *ngIf="updateForm.dirty" class="alert alert-info">
+                    <strong>Warning:</strong> You have made changes. Any unsaved changes will be lost.
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{ member.knownAs }}" class="card-img-top img-thumbnail">
+                    <div class="card-body">
+                        <div>
+                            <strong>Id Number:</strong>
+                            <p>{{ member.idNumber }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-8">
+                <tabset class="member-tabset">
+                    <tab heading='About {{member.knownAs}}'>
+                        <form (ngSubmit)="updateProfile()" #updateForm="ngForm">
+                            <div class="row form-group mb-3">
+                                <div class="col-6">
+                                    <label for="firstName">First Name</label>
+                                    <input [(ngModel)]="member.firstName" type="text" name="firstName" class="form-control">
+                                </div>
+                                <div class="col-6">
+                                    <label for="LastName">Last Name</label>
+                                    <input [(ngModel)]="member.lastName" type="text" name="lastName" class="form-control">
+                                </div>
+                            </div>
+                            <div class="row form-group mb-3">
+                                <div class="col-6">
+                                    <label for="city">City </label>
+                                    <input [(ngModel)]="member.city" type="text" name="city" class="form-control">
+                                </div>
+                                <div class="col-6">
+                                    <label for="nationality">Country </label>
+                                    <input [(ngModel)]="member.nationality" type="text" name="nationality" class="form-control">
+                                </div>
+                            </div>
+                            <!-- <div class="row form-group mb-3">
+                                <div class="col-6">
+                                    <label for="dateOfBirth">Date of Birth: </label>
+                                    <input [(ngModel)]="member.dateOfBirth" type="text" name="dateOfBirth" class="form-control mx-2">
+                                </div>
+                                <div class="col-6">
+                                    <label for="status">Status </label>
+                                    <input [(ngModel)]="member.status" type="text" name="status" class="form-control mx-2">
+                                </div>
+                            </div> -->
+                            <div class="form-group mb-3">
+                                <label for="interests">Interests </label>
+                                <textarea class="form-control" [(ngModel)]="member.interests" name="interests" rows="6"></textarea>
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="m-2" mat-raised-button color="primary">Update Profile</button>
+                                <button routerLink="/account/change-password" mat-raised-button color="warn">Change Password</button>
+                            </div>
+                        </form>
+                                
+                    </tab>
+                    <!-- <tab heading='Photos of {{member.knownAs}}'>
+                        <ngx-gallery [options]="galleryOptions" [images]="galleryImages"
+                            style="display: inline-block; margin-bottom: 20px;">
+                        </ngx-gallery>
+                    </tab> -->
+                </tabset>
+            </div>
+        </div>
+    </div>
+</ng-container>

@@ -15,6 +15,7 @@ namespace Server.Helpers
                     src.Photos.FirstOrDefault(x => x.IsMain)!.Url))
                 .ForMember(a => a.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
             CreateMap<Photo, PhotoDto>();
+            CreateMap<MemberUpdateDto, AppUser>();
             CreateMap<RegisterDto, AppUser>();
             CreateMap<Prisoner, PrisonerToReturnDto>()
                 .ForMember(dest => dest.PictureUrl, opt => opt.MapFrom(src => 

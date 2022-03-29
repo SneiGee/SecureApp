@@ -45,7 +45,7 @@ export class SecurityDetailComponent implements OnInit {
   }
 
   loadGuard() {
-    this.securityService.getPrisoner(this.route.snapshot.paramMap.get('username'))
+    this.securityService.getSecurity(this.route.snapshot.paramMap.get('username'))
       .subscribe(member => {
         this.guard = member;
         this.galleryImages = this.getImages();

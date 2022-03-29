@@ -13,6 +13,11 @@ const routes: Routes = [
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
   {
+    path: 'account',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./account/account.module').then(mod => mod.AccountModule)
+  },
+  {
     path: 'dashboard',
     canActivate: [AuthGuard],
     loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule)

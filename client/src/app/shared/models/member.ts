@@ -11,7 +11,8 @@ export interface IMember {
     knownAs: string;
     created: Date;
     lastActive: Date;
-    gender: string;p
+    dateOfBirth: Date;
+    gender: string;
     status: string
     interests: string;
     city: string;

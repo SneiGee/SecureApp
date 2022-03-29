@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IMember } from '../shared/models/member';
 
@@ -9,15 +10,23 @@ import { IMember } from '../shared/models/member';
 })
 export class SecurityService {
   baseUrl = environment.apiUrl;
-  prisoners: IMember[] = [];
+  securities: IMember[] = [];
 
   constructor(private http: HttpClient) { }
 
-  getPrisoners() {
-    return this.http.get<IMember[]>(this.baseUrl + 'users');
+  getSecurites() {
+    if (this.securities.length > 0) return of(this.securities);
+    return this.http.get<IMember[]>(this.baseUrl + 'users').pipe(
+      map(securities => {
+        this.securities = securities;
+        return securities;
+      })
+    )
   }
 
-  getPrisoner(username: string) {
+  getSecurity(username: string) {
+    const security = this.securities.find(x => x.username === username);
+    if (security !== undefined) return of(security);
     return this.http.get<IMember>(this.baseUrl + 'users/' + username);
   }
 }
