@@ -22,6 +22,9 @@ namespace Server.Helpers
                     src.PrisonPhotos.FirstOrDefault(x => x.IsMain)!.Url))
                 .ForMember(dest => dest.Block, opt => opt.MapFrom(s => s.Block.Name))
                 .ForMember(a => a.Age, opt => opt.MapFrom(src => src.DateOfBirth.CalculateAge()));
+            CreateMap<PrisonPhoto, PhotoDto>();
+            CreateMap<BlockCreateDto, Block>();
+            CreateMap<PrisonerCreateDto, Prisoner>();
         }
     }
 }

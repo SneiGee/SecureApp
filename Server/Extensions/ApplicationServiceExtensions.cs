@@ -15,6 +15,8 @@ namespace Server.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPrisonerRepository, PrisonerRepository>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IPrisonUnitOfWork, PrisonUnitOfWork>();
             services.AddAutoMapper(typeof(AutoMappingProfiles).Assembly);
             services.AddDbContext<StoreContext>(options => 
             {

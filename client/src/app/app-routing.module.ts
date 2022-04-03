@@ -18,6 +18,11 @@ const routes: Routes = [
     loadChildren: () => import('./account/account.module').then(mod => mod.AccountModule)
   },
   {
+    path: 'cell',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./cell/cell.module').then(mod => mod.CellModule)
+  },
+  {
     path: 'dashboard',
     canActivate: [AuthGuard],
     loadChildren: () => import('./dashboard/dashboard.module').then(mod => mod.DashboardModule)

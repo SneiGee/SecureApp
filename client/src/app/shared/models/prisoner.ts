@@ -1,3 +1,5 @@
+import { IPhoto } from "./photo";
+
 export interface IPrisoner {
     inmateId: string;
     firstName: string;
@@ -16,4 +18,5 @@ export interface IPrisoner {
     city: string;
     nationality: string;
     block: string;
+    prisonPhotos: IPhoto[];
 }

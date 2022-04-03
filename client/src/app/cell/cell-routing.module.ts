@@ -2,12 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { RouterModule, Routes } from '@angular/router';
-import { InmateComponent } from './inmate.component';
-import { PrisonerDetailComponent } from './prisoner-detail/prisoner-detail.component';
+import { CellComponent } from './cell.component';
 
 export const routes: Routes = [
-  {path: '', component: InmateComponent},
-  {path: ':inmateid', component: PrisonerDetailComponent}
+  {path: '', component: CellComponent}
 ]
 
 @NgModule({
@@ -17,4 +15,4 @@ export const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class InmateRoutingModule { }
+export class CellRoutingModule { }

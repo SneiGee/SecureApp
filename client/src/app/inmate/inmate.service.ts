@@ -15,7 +15,7 @@ export class InmateService {
     return this.http.get<IPrisoner[]>(this.baseUrl + 'prisoner');
   }
 
-  loadPisoner(id: number) {
-    return this.http.get<IPrisoner>(this.baseUrl + 'prisoner/' + id);
+  loadPisoner(inmateid: string) {
+    return this.http.get<IPrisoner>(this.baseUrl + 'prisoner/' + inmateid);
   }
 }

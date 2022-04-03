@@ -58,11 +58,6 @@ namespace Server.Data
                 .ToListAsync();
         }
 
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _identityContext.SaveChangesAsync() > 0;
-        }
-
         public void Update(AppUser user)
         {
             _identityContext.Entry(user).State = EntityState.Modified;

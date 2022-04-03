@@ -7,15 +7,15 @@ namespace Server.Specifications
         public PrisonersWithBlocks()
         {
             AddInclude(x => x.Block);
-            AddInclude(x => x.PrisonPhotos);
             AddOrderBy(x => x.Created);
+            AddInclude(x => x.PrisonPhotos);
         }
 
-        public PrisonersWithBlocks(int id) : base(x => x.Id == id)
+        public PrisonersWithBlocks(string inmateid) : base(x => x.InmateId == inmateid)
         {
             AddInclude(x => x.Block);
-            AddInclude(x => x.PrisonPhotos);
             AddOrderBy(x => x.Created);
+            AddInclude(x => x.PrisonPhotos);
         }
     }
 }

@@ -15,18 +15,18 @@ namespace Server.Controllers
     [Authorize]
     public class UsersController : BaseController
     {
-        private readonly IUserRepository _repository;
         private readonly IMapper _mapper;
-        public UsersController(IUserRepository repository, IMapper mapper)
+        private readonly IUnitOfWork _unitOfWork;
+        public UsersController(IUnitOfWork unitOfWork, IMapper mapper)
         {
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
-            _repository = repository;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
         {
-            var users = await _repository.GetMembersAsync();
+            var users = await _unitOfWork.UserRepository.GetMembersAsync();
 
             return Ok(users);
         }
@@ -34,19 +34,19 @@ namespace Server.Controllers
         [HttpGet("{username}")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
-            return await _repository.GetMemberAsync(username);
+            return await _unitOfWork.UserRepository.GetMemberAsync(username);
         }
 
         [HttpPut]
         public async Task<ActionResult> UpdateUserProfile(MemberUpdateDto memberUpdateDto)
         {
-            var user = await _repository.GetUserByUsernameAsync(User.GetUsername());
+            var user = await _unitOfWork.UserRepository.GetUserByUsernameAsync(User.GetUsername());
 
             _mapper.Map(memberUpdateDto, user);
 
-            _repository.Update(user);
+            _unitOfWork.UserRepository.Update(user);
 
-            if (await _repository.SaveAllAsync()) return NoContent();
+            if (await _unitOfWork.Complete()) return NoContent();
 
             return BadRequest("Failed to update user");
         }

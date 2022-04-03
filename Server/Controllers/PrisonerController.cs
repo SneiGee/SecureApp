@@ -9,14 +9,12 @@ namespace Server.Controllers
 {
     public class PrisonerController : BaseController
     {
-        private readonly IGenericRepository<Prisoner> _prisonerRepo;
-        private readonly IGenericRepository<Block> _prisonerBlockRepo;
         private readonly IMapper _mapper;
-        public PrisonerController(IGenericRepository<Prisoner> prisonerRepo, IGenericRepository<Block> prisonerBlockRepo, IMapper mapper)
+        private readonly IPrisonUnitOfWork _prisonUnitOfWork;
+        public PrisonerController(IPrisonUnitOfWork prisonUnitOfWork, IMapper mapper)
         {
+            _prisonUnitOfWork = prisonUnitOfWork;
             _mapper = mapper;
-            _prisonerBlockRepo = prisonerBlockRepo;
-            _prisonerRepo = prisonerRepo;
         }
 
         [HttpGet]
@@ -24,25 +22,25 @@ namespace Server.Controllers
         {
             var spec = new PrisonersWithBlocks();
 
-            var prisoners = await _prisonerRepo.ListAsync(spec);
+            var prisoners = await _prisonUnitOfWork.Repository<Prisoner>().ListAsync(spec);
 
             return Ok(_mapper.Map<IReadOnlyList<PrisonerToReturnDto>>(prisoners));
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<PrisonerToReturnDto>> GetPrisonerAsync(int id)
+        [HttpGet("{inmateid}")]
+        public async Task<ActionResult<PrisonerToReturnDto>> GetPrisonerAsync(string inmateid)
         {
-            var spec = new PrisonersWithBlocks(id);
+            var spec = new PrisonersWithBlocks(inmateid);
 
-            var prisoner = await _prisonerRepo.GetEntityWithSpec(spec);
+            var prisoner = await _prisonUnitOfWork.Repository<Prisoner>().GetEntityWithSpec(spec);
 
             return _mapper.Map<PrisonerToReturnDto>(prisoner);
         }
 
         [HttpGet("cell")]
-        public async Task<ActionResult<IReadOnlyList<Block>>> GetCellAsync()
+        public async Task<ActionResult<IReadOnlyList<BlockDto>>> GetCellAsync()
         {
-            return Ok(await _prisonerBlockRepo.ListAllAsync());
+            return Ok(await _prisonUnitOfWork.Repository<Block>().ListAllAsync());
         }
     }
 }
