@@ -12,13 +12,7 @@
         "Status": "Single",
         "Interests": "Sit sit incididunt proident velit.",
         "City": "Greenbush",
-        "Nationality": "Martinique",
-        "Photos": [
-            {
-                "Url": "https://randomuser.me/api/portraits/women/54.jpg",
-                "IsMain": true
-            }
-        ]
+        "Nationality": "Martinique"
     },
     {
         "FirstName": "Karen",
@@ -33,13 +27,7 @@
         "Status": "Married",
         "Interests": "Dolor aliquip velit amet aliqua minim quip cillum.",
         "City": "Celeryville",
-        "Nationality": "Grenada",
-        "Photos": [
-            {
-                "Url": "https://randomuser.me/api/portraits/women/50.jpg",
-                "IsMain": true
-            }
-        ]
+        "Nationality": "Grenada"
     },
     {
         "FirstName": "Mark",
@@ -54,12 +42,6 @@
         "Status": "Single",
         "Interests": "Dolor aliquip velit amet aliqua minim quip cillum.",
         "City": "Celeryville",
-        "Nationality": "UK",
-        "Photos": [
-            {
-                "Url": "https://randomuser.me/api/portraits/women/50.jpg",
-                "IsMain": true
-            }
-        ]
+        "Nationality": "UK"
     }
 ]

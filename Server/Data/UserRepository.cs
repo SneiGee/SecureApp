@@ -18,6 +18,11 @@ namespace Server.Data
             _identityContext = identityContext;
         }
 
+        public void Delete(AppUser user)
+        {
+            _identityContext.Remove(user);
+        }
+
         public async Task<MemberDto> GetMemberAsync(string username)
         {
             var getUser = await _identityContext.Users

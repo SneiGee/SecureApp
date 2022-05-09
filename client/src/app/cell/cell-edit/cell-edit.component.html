@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Cell Data</h2>
+
+<div mat-dialog-content>
+    <form [formGroup]="cellForm" autocomplete="off">
+        <div class="form-group mb-3">
+                <app-text-input [label]="'Name'" formControlName="name"></app-text-input>
+        </div>
+    </form>
+</div>
+
+<div class="" mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button [disabled]="!cellForm.dirty" mat-raised-button color="primary" class="ml-3" (click)="submitData()">
+        {{ submitOptions }}
+        <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
+    </button>
+</div>

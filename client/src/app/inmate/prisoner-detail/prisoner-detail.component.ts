@@ -45,7 +45,7 @@ export class PrisonerDetailComponent implements OnInit {
   }
 
   loadPrisoner() {
-    this.inmateService.loadPisoner(this.route.snapshot.paramMap.get('inmateid'))
+    this.inmateService.getPrisoner(this.route.snapshot.paramMap.get('inmateid'))
       .subscribe(prisoner => {
         this.prisoner = prisoner;
         this.galleryImages = this.getImages();

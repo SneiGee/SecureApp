@@ -5,6 +5,10 @@ import { InmateRoutingModule } from './inmate-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { PrisonerListComponent } from './prisoner-list/prisoner-list.component';
 import { PrisonerDetailComponent } from './prisoner-detail/prisoner-detail.component';
+import { PrisonerEditComponent } from './prisoner-edit/prisoner-edit.component';
+import { PrisonerFormComponent } from './prisoner-form/prisoner-form.component';
+import { PrisonerDeleteComponent } from './prisoner-delete/prisoner-delete.component';
+import { PhotoEditorComponent } from './photo-editor/photo-editor.component';
 
 
 
@@ -12,7 +16,11 @@ import { PrisonerDetailComponent } from './prisoner-detail/prisoner-detail.compo
   declarations: [
     InmateComponent,
     PrisonerListComponent,
-    PrisonerDetailComponent
+    PrisonerDetailComponent,
+    PrisonerEditComponent,
+    PrisonerFormComponent,
+    PrisonerDeleteComponent,
+    PhotoEditorComponent
   ],
   imports: [
     CommonModule,

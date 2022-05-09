@@ -15,18 +15,25 @@ export class SecurityService {
   constructor(private http: HttpClient) { }
 
   getSecurites() {
-    if (this.securities.length > 0) return of(this.securities);
-    return this.http.get<IMember[]>(this.baseUrl + 'users').pipe(
-      map(securities => {
-        this.securities = securities;
-        return securities;
-      })
-    )
+    // if (this.securities.length > 0) return of(this.securities);
+    return this.http.get<IMember[]>(this.baseUrl + 'users');
   }
 
   getSecurity(username: string) {
     const security = this.securities.find(x => x.username === username);
     if (security !== undefined) return of(security);
     return this.http.get<IMember>(this.baseUrl + 'users/' + username);
+  }
+
+  createSecurity(model: any) {
+    return this.http.post(this.baseUrl + 'security/add-guard', model);
+  }
+
+  updateGuard(id: number, data: any) {
+    return this.http.put(this.baseUrl + 'security/update-guard/' + id, data);
+  }
+  
+  deleteGuard(id: number) {
+    return this.http.delete(this.baseUrl + 'security/delete-guard/' + id);
   }
 }

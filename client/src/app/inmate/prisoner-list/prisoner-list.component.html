@@ -1,8 +1,16 @@
-<div class="col-6">
-    <mat-form-field appearance="standard">
-        <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Search Prisoner..." #input>
-    </mat-form-field>
+<div class="d-flex">
+    <div class="d-flex col-4">
+        <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search Prisoner..." #input>
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="(currentUser$ | async) as user" class="p-4" style="margin-left: 40%;">
+        <button [disabled]='user.roles["Admin"]' (click)="openDialog()" mat-raised-button color="default">
+            <mat-icon>add</mat-icon> Add New Prisoner
+        </button>
+    </div>
 </div>
 
 <div class="col-12">
@@ -12,7 +20,7 @@
             <!-- Photo Column -->
             <ng-container matColumnDef="pictureUrl">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Photo </th>
-                <td mat-cell *matCellDef="let row"> <img src="{{row.pictureUrl}}" alt="{{row.firstName}}"> </td>
+                <td mat-cell *matCellDef="let row"> <img src="{{row.pictureUrl  || 'assets/user.png'}}" alt="{{row.firstName}}"> </td>
             </ng-container>
 
             <!-- Name Column -->
@@ -53,11 +61,11 @@
                         [matTooltipPosition]="position.value">
                         <mat-icon>data_thresholding</mat-icon>
                     </button>
-                    <button mat-icon-button color="accent" matTooltip="Edit data" 
+                    <button (click)="editDialog(row)" mat-icon-button color="accent" matTooltip="Edit data" 
                         [matTooltipPosition]="position.value">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-icon-button color="warn" matTooltip="Delete data" 
+                    <button (click)="deleteDialog(row)" mat-icon-button color="warn" matTooltip="Delete data" 
                         [matTooltipPosition]="position.value">
                         <mat-icon>delete</mat-icon>
                     </button>

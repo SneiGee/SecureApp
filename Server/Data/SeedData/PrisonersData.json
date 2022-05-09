@@ -14,13 +14,7 @@
         "HairColor": "Brown",
         "City": "LA",
         "Nationality": "USA",
-        "BlockId": 1,
-        "PrisonPhotos": [
-            {
-                "Url": "https://randomuser.me/api/portraits/women/54.jpg",
-                "IsMain": true
-            }
-        ]
+        "BlockId": 1
     },
     {
         "FirstName": "Karen",
@@ -37,13 +31,7 @@
         "HairColor": "Brown",
         "City": "London",
         "Nationality": "UK",
-        "BlockId": 1,
-        "PrisonPhotos": [
-            {
-                "Url": "https://randomuser.me/api/portraits/women/50.jpg",
-                "IsMain": true
-            }
-        ]
+        "BlockId": 1
     },
     {
         "FirstName": "John",
@@ -60,13 +48,7 @@
         "HairColor": "Red",
         "City": "Accra",
         "Nationality": "Ghana",
-        "BlockId": 2,
-        "PrisonPhotos": [
-            {
-                "Url": "https://randomuser.me/api/portraits/women/90.jpg",
-                "IsMain": true
-            }
-        ]
+        "BlockId": 1
     },
     {
         "FirstName": "Clement",
@@ -83,12 +65,6 @@
         "HairColor": "Brown",
         "City": "Celeryville",
         "Nationality": "Grenada",
-        "BlockId": 2,
-        "PrisonPhotos": [
-            {
-                "Url": "https://randomuser.me/api/portraits/women/84.jpg",
-                "IsMain": true
-            }
-        ]
+        "BlockId": 2
     }
 ]

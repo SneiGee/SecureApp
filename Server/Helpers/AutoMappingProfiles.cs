@@ -25,6 +25,7 @@ namespace Server.Helpers
             CreateMap<PrisonPhoto, PhotoDto>();
             CreateMap<BlockCreateDto, Block>();
             CreateMap<PrisonerCreateDto, Prisoner>();
+            CreateMap<PrisonerUpdateDto, Prisoner>();
         }
     }
 }

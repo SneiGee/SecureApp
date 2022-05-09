@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from './core/guards/admin.guard';
 import { AuthGuard } from './core/guards/auth.guard';
 import { NotFoundComponent } from './core/not-found/not-found.component';
 import { ServerErrorComponent } from './core/server-error/server-error.component';
@@ -12,6 +13,11 @@ const routes: Routes = [
   {path: 'errors', component: TestErrorsComponent},
   {path: 'not-found', component: NotFoundComponent},
   {path: 'server-error', component: ServerErrorComponent},
+  {
+    path: 'admin',
+    canActivate: [AuthGuard, AdminGuard],
+    loadChildren: () => import('./admin/admin.module').then(mod => mod.AdminModule)
+  },
   {
     path: 'account',
     canActivate: [AuthGuard],
@@ -34,7 +40,7 @@ const routes: Routes = [
   },
   {
     path: 'security',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./security/security.module').then(mod => mod.SecurityModule)
   },
   {

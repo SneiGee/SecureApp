@@ -12,6 +12,18 @@ export class CellService {
   constructor(private http: HttpClient) { }
 
   loadPrisonCell() {
-    return this.http.get<ICell[]>(this.baseUrl + 'prisoner/cell');
+    return this.http.get<ICell[]>(this.baseUrl + 'admin/cell');
+  }
+
+  createCell(cell: ICell) {
+    return this.http.post(this.baseUrl + 'admin/create-cell', cell);
+  }
+
+  updateCell(id: number, data: any) {
+    return this.http.put(this.baseUrl + 'admin/update-cell/' + id, data);
+  }
+
+  deleteCell(id: number) {
+    return this.http.delete(this.baseUrl + 'admin/delete-cell/' + id);
   }
 }

@@ -1,0 +1,76 @@
+<h2 mat-dialog-title>Security Data</h2>
+
+<div mat-dialog-content>
+    <tabset class="member-tabset">
+        <tab heading="{{ submitOptions}} Data">
+            <form [formGroup]="securityForm" autocomplete="off">
+                <div class="row form-group mb-3">
+                    <div class="col-4">
+                        <app-text-input [label]="'First Name'" formControlName="firstName"></app-text-input>
+                    </div>
+                    <div class="col-4">
+                        <app-text-input [label]="'Last Name'" formControlName="lastName"></app-text-input>
+                    </div>
+                    <div class="col-4">
+                        <app-text-input [label]="'Username'" formControlName="username"></app-text-input>
+                    </div>
+                </div>
+            
+                <div class="row form-group mb-2">
+                    <div class="col-4">
+                        <app-text-input [label]="'Interest / Hobby'" formControlName="interests"></app-text-input>
+                    </div>
+                    <div class="col-4">
+                        <app-text-input [label]="'Gender'" formControlName="gender"></app-text-input>
+                    </div>
+                    <div class="col-4">
+                        <app-text-input [label]="'Status'" formControlName="status"></app-text-input>
+                    </div>
+                </div>
+                
+                <div *ngIf="submitOptions === 'Create'"  class="row form-group mb-2">
+                    <div class="col-4">
+                        <app-text-input [label]="'City'" formControlName="city"></app-text-input>
+                    </div>
+                    <div class="col-4">
+                        <app-text-input [label]="'Nationality'" formControlName="nationality"></app-text-input>
+                    </div>
+                    <div class="col-4">
+                        <app-date-input [label]="'Date of birth'" formControlName="dateOfBirth"></app-date-input>
+                    </div>
+                </div>
+
+                <div *ngIf="submitOptions === 'Update'" class="row form-group mb-2">
+                    <div class="col-6">
+                        <app-text-input [label]="'City'" formControlName="city"></app-text-input>
+                    </div>
+                    <div class="col-6">
+                        <app-text-input [label]="'Nationality'" formControlName="nationality"></app-text-input>
+                    </div>
+                </div>
+            
+                <div *ngIf="submitOptions === 'Create'" class="row form-group mb-2">
+                    <div class="col-6">
+                        <app-text-input [label]="'Password'" [type]="'password'" formControlName="password"></app-text-input>
+                    </div>
+                    <div class="col-6">
+                        <app-text-input [formControl]='securityForm.controls["confirmPassword"]' 
+                            [label]='"Confirm Password"'
+                            [type]='"password"'></app-text-input>
+                    </div>
+                </div>
+            </form>
+        </tab>
+        <tab *ngIf="security" heading="Change {{security.username | titlecase}} Password">
+            PASSWORD CHANGE WILL GO HERE!
+        </tab>
+    </tabset>
+</div>
+
+<div class="" mat-dialog-actions [align]="'end'">
+    <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+    <button [disabled]="!securityForm.dirty" mat-raised-button color="primary" class="ml-3" (click)="submitData()">
+        {{ submitOptions }}
+        <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
+    </button>
+</div>

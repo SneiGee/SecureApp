@@ -1,9 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { TooltipPosition } from '@angular/material/tooltip';
+import { CellDeleteComponent } from './cell-delete/cell-delete.component';
+import { CellEditComponent } from './cell-edit/cell-edit.component';
 import { CellService } from './cell.service';
 
 @Component({
@@ -21,7 +24,7 @@ export class CellComponent implements OnInit {
   positionOptions: TooltipPosition[] = ['below'];
   position = new FormControl(this.positionOptions[0]);
 
-  constructor(private cellService: CellService) { }
+  constructor(private cellService: CellService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.LoadPrisonCell();
@@ -42,6 +45,38 @@ export class CellComponent implements OnInit {
     if (this.dataCellSource.paginator) {
       this.dataCellSource.paginator.firstPage();
     }
+  }
+
+  createDialog() {
+    this.dialog.open(CellEditComponent, {
+      disableClose: true,
+      autoFocus: true,
+      width: '40%'
+    }).afterClosed().subscribe(response => {
+      if (response === 'create') return this.LoadPrisonCell();
+    })
+  }
+
+  editDialog(row: any) {
+    this.dialog.open(CellEditComponent, {
+      disableClose: true,
+      autoFocus: true,
+      width: '40%',
+      data: row
+    }).afterClosed().subscribe(response => {
+      if (response === 'update') return this.LoadPrisonCell();
+    })
+  }
+
+  deleteDialog(row: any) {
+    this.dialog.open(CellDeleteComponent, {
+      disableClose: true,
+      autoFocus: true,
+      width: '40%',
+      data: row
+    }).afterClosed().subscribe(response => {
+      if (response === 'delete') return this.LoadPrisonCell();
+    })
   }
 
 }

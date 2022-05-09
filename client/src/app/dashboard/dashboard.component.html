@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="col-3 mb-5">
+                <div *appHasRole='["Admin", "Moderator"]' class="col-3 mb-5">
                     <div class="card h-100 shadow-sm">
                         <div routerLink="/security" class="card-body d-flex flex-column text-center">
                             <span class="fa fa-shield fa-3x mb-4"></span>
@@ -29,9 +29,9 @@
                     </div>
                 </div>
 
-                <div class="col-3 mb-5">
+                <div *appHasRole='["Admin", "Moderator"]' class="col-3 mb-5">
                     <div class="card h-100 shadow-sm">
-                        <div routerLink="" class="card-body d-flex flex-column text-center">
+                        <div routerLink="/admin" class="card-body d-flex flex-column text-center">
                             <span class="fa fa-tags fa-3x mb-4"></span>
                             <span class="nameText">Administrator</span>
                         </div>

@@ -26,7 +26,7 @@ namespace Server.Controllers
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            if (await CheckUsernameExists(registerDto.Username)) return BadRequest("Oops@! Username already taken");
+            if (await CheckUsernameExists(registerDto.Username)) return BadRequest("Oops! Username already taken");
 
             var user = _mapper.Map<AppUser>(registerDto);
 
@@ -44,7 +44,7 @@ namespace Server.Controllers
             {
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
-                KnownAs = user.KnownAs,
+                // KnownAs = user.KnownAs,
                 IdNumber = user.IdNumber,
                 Gender = user.Gender
             };
@@ -53,6 +53,9 @@ namespace Server.Controllers
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
+            if (loginDto.Username == null) return Unauthorized("Missing Username!");
+            if (loginDto.Password == null) return Unauthorized("Missing Password!");
+
             var user = await _userManager.Users
                 .Include(p => p.Photos)
                 .SingleOrDefaultAsync(x => x.UserName == loginDto.Username.ToLower());
@@ -62,15 +65,21 @@ namespace Server.Controllers
             var result = await _signInManager
                 .CheckPasswordSignInAsync(user, loginDto.Password, false);
 
-            if (!result.Succeeded) return Unauthorized();
+            if (result == Microsoft.AspNetCore.Identity.SignInResult.Failed)
+            {
+                return Unauthorized("Invalid Password.");
+            }
+            // else if (!result.Succeeded)
+            // {
+            //     return Unauthorized("Wrong credentials entered");
+            // }
 
             return new UserDto
             {
                 Username = user.UserName,
                 Token = await _tokenService.CreateToken(user),
-                IdNumber = user.IdNumber,
-                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)!.Url,
-                KnownAs = user.KnownAs,
+                PhotoUrl = user.Photos.FirstOrDefault(x => x.IsMain)?.Url!,
+                // KnownAs = user.KnownAs,
                 Gender = user.Gender
             };
         }

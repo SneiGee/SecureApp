@@ -1,15 +1,86 @@
-<ng-container >
-    <div class="card mb-2">
-        <div class="card-img-wrapper">
-            <img src="{{member.photoUrl || './assets/user.png'}}" alt="{{member.username}}" class="card-img-top">
-        </div>
-    
-        <div class="card-body p-1">
-            <h3 class="card-title text-center mb-1">
-                {{member.knownAs}}
-            </h3>
-            <p class="card-text text-muted text-center">{{member.city}}</p>
-            <button routerLink="/security/{{member.username}}" mat-raised-button color="warn" class="text-center w-100 mb-2">View data</button>
-        </div>
+<div class="d-flex">
+    <div class="d-flex col-4">
+        <mat-form-field appearance="standard">
+            <mat-label>Filter</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search Prisoner..." #input>
+        </mat-form-field>
     </div>
-</ng-container>
+
+    <div class="p-4" style="margin-left: 45%;">
+        <button (click)="openDialog()" mat-raised-button color="defualt">
+            <mat-icon>add</mat-icon> Add New Security
+        </button>
+    </div>
+</div>
+
+<div class="col-12">
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <!-- Photo Column -->
+            <ng-container matColumnDef="pictureUrl">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Photo </th>
+                <td mat-cell *matCellDef="let row"> <img src="{{row.photoUrl  || 'assets/user.png'}}" alt="{{row.firstName}}"> </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.firstName}} {{row.lastName}} </td>
+            </ng-container>
+
+            <!-- Block Column -->
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef="let row"> {{row.status}} </td>
+            </ng-container>
+
+            <!-- Age Column -->
+            <ng-container matColumnDef="age">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Age </th>
+                <td mat-cell *matCellDef="let row"> {{row.age}} </td>
+            </ng-container>
+
+            <!-- Gender Column -->
+            <ng-container matColumnDef="gender">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Gender </th>
+                <td mat-cell *matCellDef="let row"> {{row.gender | titlecase}} </td>
+            </ng-container>
+
+            <!-- Arrest date Column -->
+            <ng-container matColumnDef="lastActive">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Active </th>
+                <td mat-cell *matCellDef="let row"> {{row.lastActive | date}} </td>
+            </ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>  </th>
+                <td mat-cell *matCellDef="let row"> 
+                    <button routerLink="/security/{{row.username}}" mat-icon-button color="primary" matTooltip="View data" 
+                        [matTooltipPosition]="position.value">
+                        <mat-icon>data_thresholding</mat-icon>
+                    </button>
+                    <button (click)="editDialog(row)" mat-icon-button color="accent" matTooltip="Edit data" 
+                        [matTooltipPosition]="position.value">
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button (click)="deleteDialog(row)" mat-icon-button color="warn" matTooltip="Delete data" 
+                        [matTooltipPosition]="position.value">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    </div>
+</div>

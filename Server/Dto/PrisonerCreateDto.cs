@@ -14,7 +14,6 @@ namespace Server.Dto
         public DateTime DateOfBirth { get; set; }
         [Required]
         public string Race { get; set; } = string.Empty;
-        public DateTime Created { get; set; } = DateTime.Now;
         [Required]
         public string Gender { get; set; } = string.Empty;
         [Required]
@@ -31,7 +30,6 @@ namespace Server.Dto
         public string City { get; set; } = string.Empty;
         [Required]
         public string Nationality { get; set; } = string.Empty;
-        [Required]
         public int BlockId { get; set; }
     }
 }

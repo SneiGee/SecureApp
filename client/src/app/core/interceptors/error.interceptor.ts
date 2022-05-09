@@ -20,39 +20,55 @@ export class ErrorInterceptor implements HttpInterceptor {
         if (error) {
           switch (error.status) {
             case 400:
-              if (error.error.errors) {
-                const modalStateErrors = [];
-                for (const key in error.error.errors) {
-                  if (error.error.errors[key]) {
-                    modalStateErrors.push(error.error.errors[key])
+             const modalStateErrors = [];
+             
+              if (error.error) { 
+                for (const key in error.error) {
+                  if (error.error[key]) {
+                    modalStateErrors.push(error.error[key].description);
                   }
                 }
-                throw modalStateErrors.flat();
-              } else if (typeof(error.error) === 'object') {
+                modalStateErrors.flat().forEach(err => {
+                  this.toastr.error(err);
+                }); 
+              }              
+              else if (error.error.errors) {               
+                for (const key in error.error.errors) {
+                  if (error.error.errors[key]) {
+                    modalStateErrors.push(error.error.errors[key]);
+                  }
+                }             
+                modalStateErrors.flat().forEach(err => {
+                  this.toastr.error(err);
+                });               
+              } else if(typeof(error.error) === 'object')  {
                 this.toastr.error(error.statusText, error.status);
               } else {
-                this.toastr.error(error.error, error.status);
+                this.toastr.error(error.error);
               }
-              break;
+              break;            
             case 401:
-              this.toastr.error(error.statusText, error.status);
+              if (error.error) {
+                this.toastr.error(error.error);
+              } else {
+                this.toastr.error("Unauthorized User", error.status);
+              }              
               break;
             case 404:
-              this.router.navigateByUrl('/not-found');
+              this.router.navigateByUrl("/not-found");
               break;
             case 500:
-              const navigationExtras: NavigationExtras = {state: {error: error.error}}
-              this.router.navigateByUrl('/server-error', navigationExtras);
+              const navigationExtras: NavigationExtras = { state: { error: error.error } }
+              this.router.navigateByUrl("/server-error", navigationExtras);
               break;
             default:
-              this.toastr.error('Something unexpected went wrong');
-              console.log(error);
+              this.toastr.error("something unexpected went very wrong!");
+              console.log(error);              
               break;
           }
         }
-
         return throwError(error);
-      })
+     })
     )
   }
 }

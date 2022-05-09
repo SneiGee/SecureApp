@@ -17,18 +17,27 @@
                     Sign into your account
                 </h5>
 
-                <div class="form-outline mb-4">
-                    <label class="form-label" for="username">Username</label>
-                    <input type="text" name="username" formControlName="username" class="form-control form-control-lg">
+                <div class="row" *ngIf="validationErrors.length > 0">
+                    <ul class="text-danger">
+                        <li *ngFor="let error of validationErrors">
+                            {{error}}
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="form-outline mb-4">
-                    <label class="form-label" for="password">Password</label>
-                    <input type="password" name="password" formControlName="password" class="form-control form-control-lg">
+                    <app-text-input [labelClass]="'form-label'" [label]="'Username'" formControlName="username"></app-text-input>
+                </div>
+
+                <div class="form-outline mb-4">
+                    <app-text-input [labelClass]="'form-label'" [label]="'Password'" [type]="'password'" formControlName="password"></app-text-input>
                 </div>
 
                 <div class="pt-1 mb-4">
-                    <button class="btn btn-secondary btn-lg btn-block" style="width: 100%;" type="submit">Login</button>
+                    <button [disabled]="!loginForm.valid" class="btn btn-secondary btn-lg btn-block" style="width: 100%;" type="submit">
+                        Login 
+                        <i *ngIf="loading" class="fa fa-spinner fa-spin"></i>
+                    </button>
                 </div>
 
                 <a class="small text-muted" href="#!">Forgot password?</a>

@@ -8,13 +8,12 @@ export interface IMember {
     lastName: string;
     photoUrl: string;
     age: number;
-    knownAs: string;
     created: Date;
     lastActive: Date;
     dateOfBirth: Date;
+    interests: string;
     gender: string;
     status: string
-    interests: string;
     city: string;
     nationality: string;
     photos: IPhoto[];

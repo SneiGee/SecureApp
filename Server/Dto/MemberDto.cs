@@ -2,6 +2,7 @@ namespace Server.Dto
 {
     public class MemberDto
     {
+        public int Id { get; set; }
         public string IdNumber { get; set; } = string.Empty;
         public string Username { get; set; } = string.Empty;
         public string FirstName { get; set; } = string.Empty;

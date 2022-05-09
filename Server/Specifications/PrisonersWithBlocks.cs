@@ -10,6 +10,13 @@ namespace Server.Specifications
             AddOrderBy(x => x.Created);
             AddInclude(x => x.PrisonPhotos);
         }
+        
+        public PrisonersWithBlocks(int id) : base(x => x.Id == id)
+        {
+            AddInclude(x => x.Block);
+            AddOrderBy(x => x.Created);
+            AddInclude(x => x.PrisonPhotos);
+        }
 
         public PrisonersWithBlocks(string inmateid) : base(x => x.InmateId == inmateid)
         {
