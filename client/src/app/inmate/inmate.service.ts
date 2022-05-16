@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, of } from 'rxjs';
+import { map, of, take } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { AccountService } from '../account/account.service';
 import { ICell } from '../shared/models/cell';
 import { IPrisoner, IPrisonerToCreate, PrisonerFormValues } from '../shared/models/prisoner';
+import { IUser } from '../shared/models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +14,13 @@ export class InmateService {
   baseUrl = environment.apiUrl;
   prisoners: IPrisoner[] = [];
   cells: ICell[] = [];
+  user: IUser;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private accountService: AccountService) { 
+    this.accountService.currentUser$.pipe(take(1)).subscribe(user => {
+      this.user = user;
+    })
+  }
 
   loadPrisoners() {
     return this.http.get<IPrisoner[]>(this.baseUrl + 'prisoner');

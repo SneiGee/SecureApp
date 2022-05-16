@@ -11,8 +11,8 @@ using Server.Data.Identity;
 namespace Server.Data.Identity.Migrations
 {
     [DbContext(typeof(IdentityContext))]
-    [Migration("20220502151642_InitialCreateIdentity")]
-    partial class InitialCreateIdentity
+    [Migration("20220516173942_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

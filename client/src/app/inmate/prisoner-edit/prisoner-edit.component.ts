@@ -28,7 +28,7 @@ export class PrisonerEditComponent implements OnInit {
 
 
   constructor(private inmateService: InmateService, private route: ActivatedRoute, 
-    private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public editData: IPrisoner, 
+    private formBuilder: FormBuilder, @Inject(MAT_DIALOG_DATA) public editData: any, 
     private dialogRef: MatDialogRef<PrisonerEditComponent>, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
